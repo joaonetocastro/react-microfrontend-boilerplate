@@ -3,25 +3,27 @@ version: "3.7"
 services:
   host:
     build:
-      dockerfile: ./infra/Dockerfile
-      context: ./
+      dockerfile: ../infra/Dockerfile
+      context: ./host
       target: DEVELOPMENT
     volumes:
-      - ./host:/app/host
+      - ./host:/app
     hostname: host
     working_dir: /app/host
     command: yarn start
     env_file: ./.env
+    depends_on:
+      - counter
     ports:
       - "8080:8080"
 
   counter:
     build:
-      dockerfile: ./infra/Dockerfile
-      context: ./
+      dockerfile: ../infra/Dockerfile
+      context: ./counter
       target: DEVELOPMENT
     volumes:
-      - ./counter:/app/counter
+      - ./counter:/app
     hostname: counter
     working_dir: /app/counter
     command: yarn start
