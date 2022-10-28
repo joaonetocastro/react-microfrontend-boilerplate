@@ -9,6 +9,7 @@ services:
     volumes:
       - ./host:/app/host
     hostname: host
+    working_dir: /app/host
     command: yarn start
     env_file: ./.env
     ports:
@@ -18,10 +19,11 @@ services:
     build:
       dockerfile: ./infra/Dockerfile
       context: ./
-      target: DEVELOPMENT_2
+      target: DEVELOPMENT
     volumes:
       - ./counter:/app/counter
     hostname: counter
+    working_dir: /app/counter
     command: yarn start
     env_file: ./.env
     ports:
