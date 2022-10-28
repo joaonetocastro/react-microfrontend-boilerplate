@@ -9,7 +9,6 @@ services:
     volumes:
       - ./host:/app
     hostname: host
-    working_dir: /app/host
     command: yarn start
     env_file: ./.env
     depends_on:
@@ -25,8 +24,17 @@ services:
     volumes:
       - ./counter:/app
     hostname: counter
-    working_dir: /app/counter
     command: yarn start
     env_file: ./.env
     ports:
       - "8081:8081"
+
+  production:
+    build:
+      dockerfile: ./infra/Dockerfile
+      context: ./
+      target: PRODUCTION
+    hostname: production
+    env_file: ./.env
+    ports:
+      - "80:8080"
