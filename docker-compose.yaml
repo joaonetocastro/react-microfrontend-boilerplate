@@ -1,0 +1,28 @@
+version: "3.7"
+
+services:
+  host:
+    build:
+      dockerfile: ./infra/Dockerfile
+      context: ./
+      target: DEVELOPMENT
+    volumes:
+      - ./host:/app/host
+    hostname: host
+    command: yarn start
+    env_file: ./.env
+    ports:
+      - "8080:8080"
+
+  counter:
+    build:
+      dockerfile: ./infra/Dockerfile
+      context: ./
+      target: DEVELOPMENT_2
+    volumes:
+      - ./counter:/app/counter
+    hostname: counter
+    command: yarn start
+    env_file: ./.env
+    ports:
+      - "8081:8081"
